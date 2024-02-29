@@ -21,6 +21,9 @@
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
 
+# define ABSCISSES 1920
+# define ORDONNEES 1080
+
 typedef struct	s_data
 {
 	void		*mlx;
@@ -43,17 +46,19 @@ typedef struct	s_data
 	int		max_iterations;
 }				t_data;
 
-//main
-void	init_fractal(t_data *fractal);
-int	generatefractal(t_data *fractal, char *name);
-void	*drawmandelbrot(void *fractal_void);
+
+//algos
+void	*drawmandelbrot(void *tmpfractal);
 void	calculatemandelbrot(t_data *fractal);
-void	put_color_to_pixel(t_data *fractal, int x, int y, int color);
+void	*drawjulia(void *tmpfractal);
+void	calculatejulia(t_data *fractal);
 
 //remote
 
 
 //utils
 int	parsing(int ac, char **av);
+void	init_fractal(t_data *fractal);
+void	put_color_to_pixel(t_data *fractal, int x, int y, int color);
 
 #endif

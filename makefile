@@ -21,6 +21,7 @@ LIBXFLAG = -Lminilibx-linux
 
 ##fichiers sources
 SRCS = fractol.c \
+	algo.c \
 	remote.c \
 	utils.c \
 

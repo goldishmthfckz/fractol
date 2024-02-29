@@ -28,6 +28,28 @@ int	parsing(int ac, char **av)
 	return (1);
 }
 
+//initialise donnees de la fractale
+void	init_fractal(t_data *fractal)
+{
+	fractal->x = 0;
+	fractal->y = 0;
+	fractal->color = 0xFCBE11;
+	fractal->zoom = 300;
+	fractal->offset_x = -1.21;
+	fractal->offset_y = -1.21;
+	fractal->max_iterations = 42;
+}
+
+//
+void	put_color_to_pixel(t_data *fractal, int x, int y, int color)
+{
+	int	*buffer;
+
+	buffer = fractal->imgaddr;
+	buffer[(y * fractal->length / 4) + x] = color;
+}
+
+
 //efface le contenu de la window et free les data de la fractale
 //int	exit_fractal(t_data *fractal)
 //{
