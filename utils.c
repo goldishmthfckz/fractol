@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: estegana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/01 19:44:42 by estegana          #+#    #+#             */
+/*   Updated: 2024/03/01 19:44:43 by estegana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fractol.h"
 
 //si pas de parametre > msg d'erreur
@@ -17,7 +29,8 @@ int	parsing(int ac, char **av)
 	}
 	if (ac == 2)
 	{
-		if (ft_strcmp(av[1], "julia") != 0 && ft_strcmp(av[1], "mandelbrot") != 0)
+		if (ft_strcmp(av[1], "julia") != 0
+			&& ft_strcmp(av[1], "mandelbrot") != 0)
 		{
 			ft_printf("enter valid fractal\n");
 			return (0);
@@ -34,9 +47,9 @@ void	init_fractal(t_data *fractal)
 	fractal->x = 0;
 	fractal->y = 0;
 	fractal->color = 0xFCBE11;
-	fractal->zoom = 300;
-	fractal->offset_x = -1.21;
-	fractal->offset_y = -1.21;
+	fractal->zoom = 400;
+	fractal->offset_x = -3;
+	fractal->offset_y = -1.5;
 	fractal->max_iterations = 42;
 }
 
@@ -49,14 +62,13 @@ void	put_color_to_pixel(t_data *fractal, int x, int y, int color)
 	buffer[(y * fractal->length / 4) + x] = color;
 }
 
-
 //efface le contenu de la window et free les data de la fractale
-//int	exit_fractal(t_data *fractal)
-//{
-//	mlx_destroy_image(fractal->mlx_ptr, fractal->image);
-//	mlx_destroy_window(fractal->mlx_ptr, fractal->win_ptr);
-//	free(fractal->mlx_ptr);
-//	free(fractal);
-//	exit(1);
-//	return (0);
-//}
+int	exit_fractal(t_data *fractal)
+{
+	mlx_destroy_image(fractal->mlx, fractal->img);
+	mlx_destroy_window(fractal->mlx, fractal->win);
+	free(fractal->mlx);
+	free(fractal);
+	exit(0);
+	return (0);
+}

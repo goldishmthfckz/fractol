@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef FRACTOL_H
 # define FRACTOL_H
 
@@ -21,44 +20,50 @@
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
 
-# define ABSCISSES 1920
-# define ORDONNEES 1080
+# define A 1920
+# define O 1080
 
-typedef struct	s_data
+typedef struct s_data
 {
+	char		*name;
 	void		*mlx;
 	void		*win;
 	void		*img;
 	void		*imgaddr;
 	int			bits;
-	int			length;
+	int			len;
 	int			endian;
 	int			x;
 	int			y;
-	double	zx;
-	double	zy;
-	double	cx;
-	double	cy;
-	int		color;
-		double	offset_x;
-	double	offset_y;
-	double	zoom;
-	int		max_iterations;
+	double		zx;
+	double		zy;
+	double		cx;
+	double		cy;
+	int			color;
+	double		offset_x;
+	double		offset_y;
+	double		zoom;
+	int			max_iterations;
 }				t_data;
 
+//main
+int		generatefractal(t_data *fractal, char *name);
 
 //algos
 void	*drawmandelbrot(void *tmpfractal);
 void	calculatemandelbrot(t_data *fractal);
-void	*drawjulia(void *tmpfractal);
+void	drawjulia(t_data *fractal);
 void	calculatejulia(t_data *fractal);
 
 //remote
-
+void	zoom(t_data *fractal, int x, int y, int zoom);
+int		keyboard(int key, t_data *fractal);
+int		mouse(int action, int x, int y, t_data *fractal);
 
 //utils
-int	parsing(int ac, char **av);
+int		parsing(int ac, char **av);
 void	init_fractal(t_data *fractal);
 void	put_color_to_pixel(t_data *fractal, int x, int y, int color);
+int		exit_fractal(t_data *fractal);
 
 #endif

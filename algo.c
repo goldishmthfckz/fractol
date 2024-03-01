@@ -19,9 +19,9 @@ void	*drawmandelbrot(void *tmpfractal)
 	fractal = (t_data *)tmpfractal;
 	fractal->x = 0;
 	fractal->y = 0;
-	while (fractal->x < ABSCISSES)
+	while (fractal->x < A)
 	{
-		while (fractal->y < ORDONNEES)
+		while (fractal->y < O)
 		{
 			calculatemandelbrot(fractal);
 			fractal->y++;
@@ -37,8 +37,9 @@ void	*drawmandelbrot(void *tmpfractal)
 void	calculatemandelbrot(t_data *fractal)
 {
 	int		i;
-	double	x_temp;
+	double	tmp;
 
+	fractal->name = "mandelbrot";
 	i = 0;
 	fractal->zx = 0.0;
 	fractal->zy = 0.0;
@@ -46,10 +47,10 @@ void	calculatemandelbrot(t_data *fractal)
 	fractal->cy = (fractal->y / fractal->zoom) + fractal->offset_y;
 	while (++i < fractal->max_iterations)
 	{
-		x_temp = fractal->zx * fractal->zx - fractal->zy * fractal->zy
+		tmp = fractal->zx * fractal->zx - fractal->zy * fractal->zy
 			+ fractal->cx;
 		fractal->zy = 2. * fractal->zx * fractal->zy + fractal->cy;
-		fractal->zx = x_temp;
+		fractal->zx = tmp;
 		if (fractal->zx * fractal->zx + fractal->zy
 			* fractal->zy >= __DBL_MAX__)
 			break ;
@@ -57,19 +58,17 @@ void	calculatemandelbrot(t_data *fractal)
 	if (i == fractal->max_iterations)
 		put_color_to_pixel(fractal, fractal->x, fractal->y, 0x000000);
 	else
-		put_color_to_pixel(fractal, fractal->x, fractal->y, (fractal->color * i));
+		put_color_to_pixel(fractal, fractal->x, fractal->y,
+			(fractal->color * i));
 }
 
-void	*drawjulia(void	*tmpfractal)
+void	drawjulia(t_data *fractal)
 {
-	t_data	*fractal;
-
-	fractal = (t_data *)tmpfractal;
 	fractal->x = 0;
 	fractal->y = 0;
-	while (fractal->x < ABSCISSES)
+	while (fractal->x < A)
 	{
-		while (fractal->y < ORDONNEES)
+		while (fractal->y < O)
 		{
 			calculatejulia(fractal);
 			fractal->y++;
@@ -77,7 +76,6 @@ void	*drawjulia(void	*tmpfractal)
 		fractal->x++;
 		fractal->y = 0;
 	}
-	return (NULL);
 }
 
 //zn+1 = zn^2 + c
@@ -86,15 +84,15 @@ void	calculatejulia(t_data *fractal)
 	int		i;
 	double	tmp;
 
-	//fractal->name = "julia";
-	fractal->zx = fractal->x / fractal->zoom + fractal->offset_x;
-	fractal->zy = fractal->y / fractal->zoom + fractal->offset_y;
+	fractal->name = "julia";
+	fractal->zx = (fractal->x / fractal->zoom) + fractal->offset_x;
+	fractal->zy = (fractal->y / fractal->zoom) + fractal->offset_y;
 	i = 0;
 	while (++i < fractal->max_iterations)
 	{
 		tmp = fractal->zx;
-		fractal->zx = fractal->zx * fractal->zx - fractal->zy * fractal->zy
-			+ fractal->cx;
+		fractal->zx = fractal->zx * fractal->zx - fractal->zy
+			* fractal->zy + fractal->cx;
 		fractal->zy = 2 * fractal->zy * tmp + fractal->cy;
 		if (fractal->zx * fractal->zx + fractal->zy
 			* fractal->zy >= __DBL_MAX__)
@@ -103,6 +101,6 @@ void	calculatejulia(t_data *fractal)
 	if (i == fractal->max_iterations)
 		put_color_to_pixel(fractal, fractal->x, fractal->y, 0x000000);
 	else
-		put_color_to_pixel(fractal, fractal->x, fractal->y, (fractal->color * (i % 255)));
+		put_color_to_pixel(fractal, fractal->x, fractal->y,
+			(fractal->color * (i % 255)));
 }
-

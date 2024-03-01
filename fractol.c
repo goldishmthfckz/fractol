@@ -22,32 +22,34 @@ int	generatefractal(t_data *fractal, char *name)
 	return (0);
 }
 
-
-
 //1. parsing : 1 seul arg valide (nom de la fractale)
-//2.a. initialiser struct fractal
-//2.b. connecter le systeme graphique et systeme d'exploitation (mlx_init)
-//2.c. ouvrir nouvelle fenetre (mlx_new_window)
-//2.d. remplir la fenetre
-//2.e. gerer le clavier et la souris
+//2.> initialiser struct fractal
+//2.> connecter le systeme graphique et systeme d'exploitation (mlx_init)
+//2.> ouvrir nouvelle fenetre taille absc / ord (mlx_new_window)
+//2.> creer image de la taille de la fenetre (mlx_new_image)
+//puis recup son adresse pr la modif plus tard avec mlx_get_data_addr)
+//2.> gerer le clavier (mlx_key_hook) et la souris (mlx_mouse_hook)
+//2.> generer la fractale en fonction de son av[1]
+//2.> raffraichissement infini en attente de commande (mlx_loop)
 int	main(int ac, char **av)
 {
-	t_data	*fractal;
+	t_data	*f;
 
 	if (parsing(ac, av) == 0)
 		exit(1);
 	else
 	{
-		fractal = (t_data*)malloc(sizeof(t_data));
-		init_fractal(fractal);
-		fractal->mlx = mlx_init();
-		fractal->win = mlx_new_window(fractal->mlx, ABSCISSES, ORDONNEES, "estegana fractol");
-		fractal->img = mlx_new_image(fractal->mlx, ABSCISSES, ORDONNEES);
-		fractal->imgaddr = mlx_get_data_addr(fractal->img, &fractal->bits, &fractal->length, &fractal->endian);
-		//keyboard
-		//mouse
-		//exit
-		generatefractal(fractal, av[1]);
-		mlx_loop(fractal->mlx);
+		f = (t_data *)malloc(sizeof(t_data));
+		init_fractal(f);
+		f->mlx = mlx_init();
+		f->win = mlx_new_window(f->mlx, A, O, "estegana fractol");
+		f->img = mlx_new_image(f->mlx, A, O);
+		f->imgaddr = mlx_get_data_addr(f->img, &f->bits, &f->len, &f->endian);
+		generatefractal(f, av[1]);
+		mlx_key_hook(f->win, keyboard, f);
+		mlx_mouse_hook(f->win, mouse, f);
+		mlx_hook(f->win, 17, 0L, exit_fractal, f);
+		mlx_loop(f->mlx);
 	}
+	return (0);
 }
