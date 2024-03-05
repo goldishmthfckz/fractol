@@ -12,8 +12,8 @@
 
 #include "fractol.h"
 
-//tant que le pt (x;y) reste ds la fenetre, calculermandel
-void	*drawmandelbrot(void *tmp)
+//tant que le pt (x;y) reste ds la fenetre, calculer + attribuer couleur
+void	*draw(void *tmp, char *name)
 {
 	t_data	*f;
 
@@ -24,7 +24,10 @@ void	*drawmandelbrot(void *tmp)
 	{
 		while (f->y < O)
 		{
-			calculatemandelbrot(f);
+			if (ft_strncmp(name, "mandelbrot", 11) == 0)
+				mandelbrot(f);
+			else if (ft_strncmp(name, "julia", 6) == 0)
+				julia(f);
 			f->y++;
 		}
 		f->x++;
@@ -37,7 +40,8 @@ void	*drawmandelbrot(void *tmp)
 //z1 = (z0)^2 + c = c (avec c = x + iy)
 //..
 //zn = (zn-1)^2 + c
-void	calculatemandelbrot(t_data *f)
+//noir=0x000000
+void	mandelbrot(t_data *f)
 {
 	int		i;
 	double	tmp;
@@ -62,28 +66,8 @@ void	calculatemandelbrot(t_data *f)
 		ft_color(f, f->x, f->y,(f->color * i));
 }
 
-void	*drawjulia(void *tmp)
-{
-	t_data	*f;
-
-	f = (t_data *)tmp;
-	f->x = 0;
-	f->y = 0;
-	while (f->x < A)
-	{
-		while (f->y < O)
-		{
-			calculatejulia(f);
-			f->y++;
-		}
-		f->x++;
-		f->y = 0;
-	}
-	return (NULL);
-}
-
 //zn+1 = zn^2 + c
-void	calculatejulia(t_data *f)
+void	julia(t_data *f)
 {
 	int		i;
 	double	tmp;
@@ -103,5 +87,5 @@ void	calculatejulia(t_data *f)
 	if (i == f->max_iterations)
 		ft_color(f, f->x, f->y, 0x000000);
 	else
-		ft_color(f, f->x, f->y, (f->color * (i)));
+		ft_color(f, f->x, f->y, (f->color * i));
 }

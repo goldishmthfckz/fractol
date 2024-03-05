@@ -14,10 +14,7 @@
 
 int	generatefractal(t_data *fractal, char *name)
 {
-	if (ft_strncmp(name, "mandelbrot", 11) == 0)
-		drawmandelbrot(fractal);
-	else if (ft_strncmp(name, "julia", 6) == 0)
-		drawjulia(fractal);
+	draw(fractal, name);
 	mlx_put_image_to_window(fractal->mlx, fractal->win, fractal->img, 0, 0);
 	return (0);
 }

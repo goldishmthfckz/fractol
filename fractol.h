@@ -33,13 +33,13 @@ typedef struct s_data
 	int			bits;
 	int			len;
 	int			endian;
+	int			color;
 	int			x;
 	int			y;
 	double		zx;
 	double		zy;
 	double		cx;
 	double		cy;
-	int			color;
 	double		offset_x;
 	double		offset_y;
 	double		zoom;
@@ -50,10 +50,9 @@ typedef struct s_data
 int		generatefractal(t_data *fractal, char *name);
 
 //algos
-void	*drawmandelbrot(void *tmpfractal);
-void	calculatemandelbrot(t_data *fractal);
-void	*drawjulia(void *tmp);
-void	calculatejulia(t_data *fractal);
+void	*draw(void *tmp, char *name);
+void	mandelbrot(t_data *fractal);
+void	julia(t_data *fractal);
 
 //remote
 void	zoom(t_data *fractal, int x, int y, int zoom);
