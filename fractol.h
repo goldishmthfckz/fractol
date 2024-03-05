@@ -52,7 +52,7 @@ int		generatefractal(t_data *fractal, char *name);
 //algos
 void	*drawmandelbrot(void *tmpfractal);
 void	calculatemandelbrot(t_data *fractal);
-void	drawjulia(t_data *fractal);
+void	*drawjulia(void *tmp);
 void	calculatejulia(t_data *fractal);
 
 //remote
@@ -63,7 +63,7 @@ int		mouse(int action, int x, int y, t_data *fractal);
 //utils
 int		parsing(int ac, char **av);
 void	init_fractal(t_data *fractal);
-void	put_color_to_pixel(t_data *fractal, int x, int y, int color);
+void	ft_color(t_data *fractal, int x, int y, int color);
 int		exit_fractal(t_data *fractal);
 
 #endif

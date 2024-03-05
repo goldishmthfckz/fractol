@@ -12,95 +12,96 @@
 
 #include "fractol.h"
 
-void	*drawmandelbrot(void *tmpfractal)
+//tant que le pt (x;y) reste ds la fenetre, calculermandel
+void	*drawmandelbrot(void *tmp)
 {
-	t_data	*fractal;
+	t_data	*f;
 
-	fractal = (t_data *)tmpfractal;
-	fractal->x = 0;
-	fractal->y = 0;
-	while (fractal->x < A)
+	f = (t_data *)tmp;
+	f->x = 0;
+	f->y = 0;
+	while (f->x < A)
 	{
-		while (fractal->y < O)
+		while (f->y < O)
 		{
-			calculatemandelbrot(fractal);
-			fractal->y++;
+			calculatemandelbrot(f);
+			f->y++;
 		}
-		fractal->x++;
-		fractal->y = 0;
+		f->x++;
+		f->y = 0;
 	}
 	return (NULL);
 }
 
 //z0 = 0
-//zn+1 = zn^2 + c
-void	calculatemandelbrot(t_data *fractal)
+//z1 = (z0)^2 + c = c (avec c = x + iy)
+//..
+//zn = (zn-1)^2 + c
+void	calculatemandelbrot(t_data *f)
 {
 	int		i;
 	double	tmp;
 
-	fractal->name = "mandelbrot";
+	f->name = "mandelbrot";
+	f->zx = 0.0;
+	f->zy = 0.0;
+	f->cx = (f->x / f->zoom) + f->offset_x;
+	f->cy = (f->y / f->zoom) + f->offset_y;
 	i = 0;
-	fractal->zx = 0.0;
-	fractal->zy = 0.0;
-	fractal->cx = (fractal->x / fractal->zoom) + fractal->offset_x;
-	fractal->cy = (fractal->y / fractal->zoom) + fractal->offset_y;
-	while (++i < fractal->max_iterations)
+	while (++i < f->max_iterations)
 	{
-		tmp = fractal->zx * fractal->zx - fractal->zy * fractal->zy
-			+ fractal->cx;
-		fractal->zy = 2. * fractal->zx * fractal->zy + fractal->cy;
-		fractal->zx = tmp;
-		if (fractal->zx * fractal->zx + fractal->zy
-			* fractal->zy >= __DBL_MAX__)
+		tmp = f->zx * f->zx - f->zy * f->zy + f->cx;
+		f->zy = 2. * f->zx * f->zy + f->cy;
+		f->zx = tmp;
+		if (f->zx * f->zx + f->zy * f->zy >= __DBL_MAX__)
 			break ;
 	}
-	if (i == fractal->max_iterations)
-		put_color_to_pixel(fractal, fractal->x, fractal->y, 0x000000);
+	if (i == f->max_iterations)
+		ft_color(f, f->x, f->y, 0x000000);
 	else
-		put_color_to_pixel(fractal, fractal->x, fractal->y,
-			(fractal->color * i));
+		ft_color(f, f->x, f->y,(f->color * i));
 }
 
-void	drawjulia(t_data *fractal)
+void	*drawjulia(void *tmp)
 {
-	fractal->x = 0;
-	fractal->y = 0;
-	while (fractal->x < A)
+	t_data	*f;
+
+	f = (t_data *)tmp;
+	f->x = 0;
+	f->y = 0;
+	while (f->x < A)
 	{
-		while (fractal->y < O)
+		while (f->y < O)
 		{
-			calculatejulia(fractal);
-			fractal->y++;
+			calculatejulia(f);
+			f->y++;
 		}
-		fractal->x++;
-		fractal->y = 0;
+		f->x++;
+		f->y = 0;
 	}
+	return (NULL);
 }
 
 //zn+1 = zn^2 + c
-void	calculatejulia(t_data *fractal)
+void	calculatejulia(t_data *f)
 {
 	int		i;
 	double	tmp;
 
-	fractal->name = "julia";
-	fractal->zx = (fractal->x / fractal->zoom) + fractal->offset_x;
-	fractal->zy = (fractal->y / fractal->zoom) + fractal->offset_y;
+	f->name = "julia";
+	f->zx = (f->x / f->zoom) + f->offset_x;
+	f->zy = (f->y / f->zoom) + f->offset_y;
 	i = 0;
-	while (++i < fractal->max_iterations)
+	while (++i < f->max_iterations)
 	{
-		tmp = fractal->zx;
-		fractal->zx = fractal->zx * fractal->zx - fractal->zy
-			* fractal->zy + fractal->cx;
-		fractal->zy = 2 * fractal->zy * tmp + fractal->cy;
-		if (fractal->zx * fractal->zx + fractal->zy
-			* fractal->zy >= __DBL_MAX__)
+		tmp = f->zx;
+		f->zx = f->zx * f->zx - f->zy * f->zy + f->cx;
+		f->zy = 2. * f->zy * tmp + f->cy;
+		if (f->zx * f->zx + f->zy * f->zy >= __DBL_MAX__)
 			break ;
 	}
-	if (i == fractal->max_iterations)
-		put_color_to_pixel(fractal, fractal->x, fractal->y, 0x000000);
+	if (i == f->max_iterations)
+		ft_color(f, f->x, f->y, 0x000000);
 	else
-		put_color_to_pixel(fractal, fractal->x, fractal->y,
-			(fractal->color * (i % 255)));
+		ft_color(f, f->x, f->y, (f->color * (i)));
 }

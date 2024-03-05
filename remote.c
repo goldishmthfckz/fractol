@@ -33,47 +33,35 @@ void	zoom(t_data *f, int x, int y, int zoom)
 		return ;
 }
 
-//void	set_random_julia(double *cx, double *cy)
-//{
-//	*cx = generate_random_c();
-//	*cy = generate_random_c();
-//}
-
-//echap 53
-//haut 126
-//bas 125
-//gauche 123
-//droite 124
-//R 15
-//C 8
-//H 4
-//J 38
-//P 35
-//M 46
-int	keyboard(int key, t_data *fractal)
+//echap 65307
+//haut 65362
+//bas 65364
+//gauche 65361
+//droite 65363
+int	keyboard(int key, t_data *f)
 {
-	if (key == 53)
+	if (key == 65307)
 		exit(1);
-	else if (key == 123)
-		fractal->offset_x -= 42 / fractal->zoom;
-	else if (key == 124)
-		fractal->offset_x += 42 / fractal->zoom;
-	else if (key == 126)
-		fractal->offset_y -= 42 / fractal->zoom;
-	else if (key == 125)
-		fractal->offset_y += 42 / fractal->zoom;
-	generatefractal(fractal, fractal->name);
+	else if (key == 65361)
+		f->offset_x -= 42 / f->zoom;
+	else if (key == 65363)
+		f->offset_x += 42 / f->zoom;
+	else if (key == 65362)
+		f->offset_y -= 42 / f->zoom;
+	else if (key == 65364)
+		f->offset_y += 42 / f->zoom;
+	generatefractal(f, f->name);
 	return (0);
 }
 
 //scroll haut 4
 //scroll bas 5
-int	mouse(int action, int x, int y, t_data *fractal)
+int	mouse(int action, int x, int y, t_data *f)
 {
 	if (action == 4)
-		zoom(fractal, x, y, 1);
+		zoom(f, x, y, 1);
 	else if (action == 5)
-		zoom(fractal, x, y, -1);
-	generatefractal(fractal, fractal->name);
+		zoom(f, x, y, -1);
+	generatefractal(f, f->name);
 	return (0);
 }

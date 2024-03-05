@@ -54,12 +54,12 @@ void	init_fractal(t_data *fractal)
 }
 
 //
-void	put_color_to_pixel(t_data *fractal, int x, int y, int color)
+void	ft_color(t_data *fractal, int x, int y, int color)
 {
 	int	*buffer;
 
 	buffer = fractal->imgaddr;
-	buffer[(y * fractal->length / 4) + x] = color;
+	buffer[(y * fractal->len / 4) + x] = color;
 }
 
 //efface le contenu de la window et free les data de la fractale

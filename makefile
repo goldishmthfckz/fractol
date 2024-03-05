@@ -51,4 +51,7 @@ fclean : clean
 	rm -rf $(NAME)
 	make -C libft fclean
 
+norm:
+	norminette $(SRCS)
+
 re : fclean all
