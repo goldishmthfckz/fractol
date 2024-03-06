@@ -16,6 +16,7 @@
 # include <stdlib.h>//malloc, free
 # include <unistd.h>//write
 # include <math.h>
+# include <stdio.h>
 # include "libft/incl/libft.h"
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"

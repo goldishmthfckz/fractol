@@ -42,33 +42,33 @@ int	parsing(int ac, char **av)
 }
 
 //initialise donnees de la fractale
-void	init_fractal(t_data *fractal)
+void	init_fractal(t_data *f)
 {
-	fractal->x = 0;
-	fractal->y = 0;
-	fractal->color = 0xFCBE11;
-	fractal->zoom = 400;
-	fractal->offset_x = -3;
-	fractal->offset_y = -1.5;
-	fractal->max_iterations = 42;
+	f->x = 0;
+	f->y = 0;
+	f->color = 0xB0C4DE;
+	f->zoom = 400;
+	f->offset_x = -3;
+	f->offset_y = -1.5;
+	f->max_iterations = 42;
 }
 
 //
-void	ft_color(t_data *fractal, int x, int y, int color)
+void	ft_color(t_data *f, int x, int y, int color)
 {
 	int	*buffer;
 
-	buffer = fractal->imgaddr;
-	buffer[(y * fractal->len / 4) + x] = color;
+	buffer = f->imgaddr;
+	buffer[(y * f->len / 4) + x] = color;
 }
 
 //efface le contenu de la window et free les data de la fractale
-int	exit_fractal(t_data *fractal)
+int	exit_fractal(t_data *f)
 {
-	mlx_destroy_image(fractal->mlx, fractal->img);
-	mlx_destroy_window(fractal->mlx, fractal->win);
-	free(fractal->mlx);
-	free(fractal);
+	mlx_destroy_image(f->mlx, f->img);
+	mlx_destroy_window(f->mlx, f->win);
+	free(f->mlx);
+	free(f);
 	exit(0);
 	return (0);
 }

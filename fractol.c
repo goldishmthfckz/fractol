@@ -47,6 +47,7 @@ int	main(int ac, char **av)
 		mlx_mouse_hook(f->win, mouse, f);
 		mlx_hook(f->win, 17, 0L, exit_fractal, f);
 		mlx_loop(f->mlx);
+		free(f);
 	}
 	return (0);
 }

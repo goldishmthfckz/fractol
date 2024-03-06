@@ -54,7 +54,7 @@ void	mandelbrot(t_data *f)
 	i = 0;
 	while (++i < f->max_iterations)
 	{
-		tmp = f->zx * f->zx - f->zy * f->zy + f->cx;
+		tmp = (f->zx * f->zx - f->zy * f->zy) + f->cx;
 		f->zy = 2. * f->zx * f->zy + f->cy;
 		f->zx = tmp;
 		if (f->zx * f->zx + f->zy * f->zy >= __DBL_MAX__)
@@ -75,12 +75,14 @@ void	julia(t_data *f)
 	f->name = "julia";
 	f->zx = (f->x / f->zoom) + f->offset_x;
 	f->zy = (f->y / f->zoom) + f->offset_y;
+	f->cx = -0.9;
+	f->cy = -0.03;
 	i = 0;
 	while (++i < f->max_iterations)
 	{
-		tmp = f->zx;
-		f->zx = f->zx * f->zx - f->zy * f->zy + f->cx;
-		f->zy = 2. * f->zy * tmp + f->cy;
+		tmp = (f->zx * f->zx - f->zy * f->zy) + f->cx;
+		f->zy = 2. * f->zx * f->zy + f->cy;
+		f->zx = tmp;
 		if (f->zx * f->zx + f->zy * f->zy >= __DBL_MAX__)
 			break ;
 	}
