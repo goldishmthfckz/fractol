@@ -19,6 +19,20 @@ int	generatefractal(t_data *fractal, char *name)
 	return (0);
 }
 
+void	init_mlx(t_data *f)
+{
+	f->mlx = mlx_init();
+	if (!f->mlx)
+		exit(EXIT_FAILURE);
+	f->win = mlx_new_window(f->mlx, A, O, "estegana fractol");
+	if (!f->win)
+		exit(EXIT_FAILURE);
+	f->img = mlx_new_image(f->mlx, A, O);
+	if (!f->img)
+		exit(EXIT_FAILURE);
+	f->imgaddr = mlx_get_data_addr(f->img, &f->bits, &f->len, &f->endian);
+}
+
 //1. parsing : 1 seul arg valide (nom de la fractale)
 //2.> initialiser struct fractal
 //2.> connecter le systeme graphique et systeme d'exploitation (mlx_init)
@@ -38,16 +52,7 @@ int	main(int ac, char **av)
 	{
 		f = (t_data *)malloc(sizeof(t_data));
 		init_fractal(f);
-		f->mlx = mlx_init();
-		if (!f->mlx)
-			exit(EXIT_FAILURE);
-		f->win = mlx_new_window(f->mlx, A, O, "estegana fractol");
-		if (!f->win)
-			exit(EXIT_FAILURE);
-		f->img = mlx_new_image(f->mlx, A, O);
-		if (!f->img)
-			exit(EXIT_FAILURE);
-		f->imgaddr = mlx_get_data_addr(f->img, &f->bits, &f->len, &f->endian);
+		init_mlx(f);
 		generatefractal(f, av[1]);
 		mlx_key_hook(f->win, keyboard, f);
 		mlx_mouse_hook(f->win, mouse, f);
