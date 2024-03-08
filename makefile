@@ -20,7 +20,7 @@ DFLAG = -g3
 LIBXFLAG = -Lminilibx-linux
 
 ##fichiers sources
-SRCS = fractol.c \
+SRCS = main.c \
 	algo.c \
 	remote.c \
 	utils.c \

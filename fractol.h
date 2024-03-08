@@ -21,8 +21,8 @@
 # include "minilibx-linux/mlx.h"
 # include "minilibx-linux/mlx_int.h"
 
-# define A 1920
-# define O 1080
+# define A 800
+# define O 800
 
 typedef struct s_data
 {

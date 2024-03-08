@@ -41,7 +41,7 @@ void	zoom(t_data *f, int x, int y, int zoom)
 int	keyboard(int key, t_data *f)
 {
 	if (key == 65307)
-		exit(1);
+		exit_fractal(f);
 	else if (key == 65361)
 		f->offset_x -= 42 / f->zoom;
 	else if (key == 65363)

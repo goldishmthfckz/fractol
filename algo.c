@@ -61,9 +61,9 @@ void	mandelbrot(t_data *f)
 			break ;
 	}
 	if (i == f->max_iterations)
-		ft_color(f, f->x, f->y, 0x000000);
+		ft_color(f, f->x, f->y, 0xFFFFFF);
 	else
-		ft_color(f, f->x, f->y,(f->color * i));
+		ft_color(f, f->x, f->y, (f->color * i));
 }
 
 //zn+1 = zn^2 + c
@@ -75,8 +75,8 @@ void	julia(t_data *f)
 	f->name = "julia";
 	f->zx = (f->x / f->zoom) + f->offset_x;
 	f->zy = (f->y / f->zoom) + f->offset_y;
-	f->cx = -0.9;
-	f->cy = -0.03;
+	f->cx = -0.8;
+	f->cy = -0.156;
 	i = 0;
 	while (++i < f->max_iterations)
 	{
@@ -87,7 +87,7 @@ void	julia(t_data *f)
 			break ;
 	}
 	if (i == f->max_iterations)
-		ft_color(f, f->x, f->y, 0x000000);
+		ft_color(f, f->x, f->y, 0xFFFFFF);
 	else
 		ft_color(f, f->x, f->y, (f->color * i));
 }

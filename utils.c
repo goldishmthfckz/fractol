@@ -46,9 +46,9 @@ void	init_fractal(t_data *f)
 {
 	f->x = 0;
 	f->y = 0;
-	f->color = 0xB0C4DE;
-	f->zoom = 400;
-	f->offset_x = -3;
+	f->color = 0xbddfff;
+	f->zoom = 250;
+	f->offset_x = -2;
 	f->offset_y = -1.5;
 	f->max_iterations = 42;
 }
@@ -67,8 +67,7 @@ int	exit_fractal(t_data *f)
 {
 	mlx_destroy_image(f->mlx, f->img);
 	mlx_destroy_window(f->mlx, f->win);
-	free(f->mlx);
+	mlx_destroy_display(f->mlx);
 	free(f);
 	exit(0);
-	return (0);
 }
