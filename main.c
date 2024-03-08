@@ -21,14 +21,11 @@ int	generatefractal(t_data *fractal, char *name)
 
 void	init_mlx(t_data *f)
 {
-	f->mlx = mlx_init();
-	if (!f->mlx)
+	if (!(f->mlx = mlx_init()))
 		exit(EXIT_FAILURE);
-	f->win = mlx_new_window(f->mlx, A, O, "estegana fractol");
-	if (!f->win)
+	if (!(f->win = mlx_new_window(f->mlx, A, O, "estegana fractol")))
 		exit(EXIT_FAILURE);
-	f->img = mlx_new_image(f->mlx, A, O);
-	if (!f->img)
+	if (!(f->img = mlx_new_image(f->mlx, A, O)))
 		exit(EXIT_FAILURE);
 	f->imgaddr = mlx_get_data_addr(f->img, &f->bits, &f->len, &f->endian);
 }
