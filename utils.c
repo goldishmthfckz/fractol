@@ -68,6 +68,7 @@ int	exit_fractal(t_data *f)
 	mlx_destroy_image(f->mlx, f->img);
 	mlx_destroy_window(f->mlx, f->win);
 	mlx_destroy_display(f->mlx);
+	free(f->mlx);
 	free(f);
 	exit(0);
 }

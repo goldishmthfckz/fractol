@@ -21,12 +21,22 @@ int	generatefractal(t_data *fractal, char *name)
 
 void	init_mlx(t_data *f)
 {
-	if (!(f->mlx = mlx_init()))
+	f->mlx = mlx_init();
+	if (!(f->mlx))
 		exit(EXIT_FAILURE);
-	if (!(f->win = mlx_new_window(f->mlx, A, O, "estegana fractol")))
+	f->win = mlx_new_window(f->mlx, A, O, "estegana fractol");
+	if (!(f->win))
+	{
+		mlx_destroy_window(f->mlx, f->win);
+		free(f->mlx);
 		exit(EXIT_FAILURE);
-	if (!(f->img = mlx_new_image(f->mlx, A, O)))
+	}
+	f->img = mlx_new_image(f->mlx, A, O);
+	if (!(f->img))
+	{
+		exit_fractal(f);
 		exit(EXIT_FAILURE);
+	}
 	f->imgaddr = mlx_get_data_addr(f->img, &f->bits, &f->len, &f->endian);
 }
 
@@ -55,7 +65,6 @@ int	main(int ac, char **av)
 		mlx_mouse_hook(f->win, mouse, f);
 		mlx_hook(f->win, 17, 0L, exit_fractal, f);
 		mlx_loop(f->mlx);
-		free(f);
 	}
 	return (0);
 }
