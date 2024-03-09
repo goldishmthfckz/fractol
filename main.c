@@ -53,12 +53,17 @@ int	main(int ac, char **av)
 {
 	t_data	*f;
 
-	if (parsing(ac, av) == 0)
+	if ((parsing(ac, av) == 0) || (parsing2(ac, av) == 0))
 		exit(1);
 	else
 	{
 		f = (t_data *)malloc(sizeof(t_data));
-		init_fractal(f);
+		if (ft_strcmp(av[1], "julia") == 0 && ac == 2)
+			init_juliastandard(f);
+		if (ft_strcmp(av[1], "julia") == 0 && ac == 4)
+			init_juliaargs(f, av[2], av[3]);
+		else
+			init_fractal(f);
 		init_mlx(f);
 		generatefractal(f, av[1]);
 		mlx_key_hook(f->win, keyboard, f);

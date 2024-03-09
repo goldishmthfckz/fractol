@@ -75,8 +75,6 @@ void	julia(t_data *f)
 	f->name = "julia";
 	f->zx = (f->x / f->zoom) + f->offset_x;
 	f->zy = (f->y / f->zoom) + f->offset_y;
-	f->cx = -0.8;
-	f->cy = -0.156;
 	i = 0;
 	while (++i < f->max_iterations)
 	{
