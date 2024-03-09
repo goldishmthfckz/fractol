@@ -12,6 +12,34 @@
 
 #include "fractol.h"
 
+int	castdouble(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str[i] == '-')
+		i += 1;
+	while (str[i] != '\0')
+	{
+		if (!(str[i] >= 48 && str[i] <= 57) && !(str[i] == '.'))
+			return (0);
+		i += 1;
+	}
+	return (1);
+}
+
+int	parsingjulia(int ac, char **av)
+{
+	if (ac != 4)
+		return (0);
+	else
+	{
+		if (!castdouble(av[2]) || !castdouble(av[3]))
+			return (0);
+	}
+	return (1);
+}
+
 //si pas de parametre > msg d'erreur
 //si + d'1 parametre > msg d'erreur
 //si 1 parametre mais pas de fractale valide > msg d'erreur
@@ -40,6 +68,14 @@ int	parsing(int ac, char **av)
 		{
 			ft_printf("too many args\n");
 			return (0);
+		}
+		else
+		{
+			if (parsingjulia(ac, av) == 0)
+			{
+				ft_printf("julia takes 2 double casted args\n");
+				return (0);
+			}
 		}
 	}
 	return (1);
