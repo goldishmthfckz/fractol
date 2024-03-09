@@ -22,11 +22,7 @@ int	parsing(int ac, char **av)
 		ft_printf("enter fractal name ; either -julia- or -mandelbrot-\n");
 		return (0);
 	}
-	if (ac > 2)
-	{
-		ft_printf("too many args\n");
-		return (0);
-	}
+
 	if (ac == 2)
 	{
 		if (ft_strcmp(av[1], "julia") != 0
@@ -37,6 +33,14 @@ int	parsing(int ac, char **av)
 		}
 		else
 			return (1);
+	}
+	if (ac > 2)
+	{
+		if (ft_strcmp(av[1], "julia") != 0)
+		{
+			ft_printf("too many args\n");
+			return (0);
+		}
 	}
 	return (1);
 }
