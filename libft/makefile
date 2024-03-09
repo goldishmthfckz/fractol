@@ -1,6 +1,6 @@
 NAME = libft.a
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fPIE
 
 SRCS = basics/ft_atoi.c \
 	basics/ft_bzero.c \
@@ -45,8 +45,6 @@ SRCS = basics/ft_atoi.c \
 	ft_printf/ft_printhexa.c \
 
 OBJS = ${SRCS:.c=.o}
-
-
 
 %.o : %.c
 	cc ${CFLAGS} -c $< -o ${<:.c=.o}
