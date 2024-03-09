@@ -12,11 +12,28 @@
 
 #include "../incl/libft.h"
 
-int	ft_atoi(const char *str)
+static double	ft_atoidouble(char *str, int i)
 {
-	int	i;
-	int	sign;
-	int	res;
+	double	j;
+	double	a;
+
+	j = 1;
+	a = 0;
+	while (ft_isdigit(str[i]))
+	{
+		j = j / 10;
+		a = a + str[i] - 48 * j;
+		i++;
+	}
+	return (a);
+}
+
+double	ft_atoi(char *str)
+{
+	int		i;
+	int		sign;
+	double	res;
+	double	a;
 
 	i = 0;
 	sign = 1;
@@ -34,5 +51,8 @@ int	ft_atoi(const char *str)
 		res = (res * 10) + (str[i] - 48);
 		i++;
 	}
-	return (res * sign);
+	if (str[i] == '.')
+		i++;
+	a = ft_atoidouble(str, i);
+	return (sign * (res + a));
 }

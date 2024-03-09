@@ -47,22 +47,31 @@ typedef struct s_data
 	int			max_iterations;
 }				t_data;
 
-//main
-int		generatefractal(t_data *fractal, char *name);
-
 //algos
 void	*draw(void *tmp, char *name);
 void	mandelbrot(t_data *fractal);
 void	julia(t_data *fractal);
+
+//init fractales
+void	init_fractal(t_data *fractal);
+void	init_juliastandard(t_data *f);
+void	init_juliaargs(t_data *f, char *cx, char *cy);
+
+//main
+int		generatefractal(t_data *fractal, char *name);
 
 //remote
 void	zoom(t_data *fractal, int x, int y, int zoom);
 int		keyboard(int key, t_data *fractal);
 int		mouse(int action, int x, int y, t_data *fractal);
 
-//utils
+//parsing
+int		parsingjulia(int ac, char **av);
 int		parsing(int ac, char **av);
-void	init_fractal(t_data *fractal);
+int		parsing2(int ac, char **av);
+
+//utils
+int		castdouble(char *str);
 void	ft_color(t_data *fractal, int x, int y, int color);
 int		exit_fractal(t_data *fractal);
 

@@ -20,8 +20,10 @@ DFLAG = -g3
 LIBXFLAG = -Lminilibx-linux
 
 ##fichiers sources
-SRCS = main.c \
-	algo.c \
+SRCS = algo.c \
+	init_fractals.c \
+	main.c \
+	parsing.c \
 	remote.c \
 	utils.c \
 
@@ -53,5 +55,6 @@ fclean : clean
 
 norm:
 	norminette $(SRCS)
+	norminette libft/
 
 re : fclean all
